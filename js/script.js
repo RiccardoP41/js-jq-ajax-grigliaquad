@@ -14,6 +14,7 @@ $(document).ready(function(){
     // AJAX che prende un numero random da 1 a 9
     $(".square").on("click", function(){
         var quadrato = $(this);
+        //Controllo se il quadrato è già stato selezionato
         if ($(quadrato).hasClass("giallo") == true || $(quadrato).hasClass("verde") == true) {
             alert("Hai già selezionato questa casella")
         } else {
