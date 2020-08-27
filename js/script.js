@@ -14,28 +14,31 @@ $(document).ready(function(){
     // AJAX che prende un numero random da 1 a 9
     $(".square").on("click", function(){
         var quadrato = $(this);
-        $.ajax(
-            {
-                "url": "https://flynn.boolean.careers/exercises/api/random/int",
-                "method": "GET",
-                "success": function (esito) {
-                    $(quadrato).text(esito.response);
-                    if (esito.response <= 5) {
-                        $(quadrato).addClass("giallo");
-                    } else {
-                        $(quadrato).addClass("verde");
+        if ($(quadrato).hasClass("giallo") == true || $(quadrato).hasClass("verde") == true) {
+            alert("Hai già selezionato questa casella")
+        } else {
+            $.ajax(
+                {
+                    "url": "https://flynn.boolean.careers/exercises/api/random/int",
+                    "method": "GET",
+                    "success": function (esito) {
+                        //faccio comparire il numero al centro del quadrato
+                        $(quadrato).text(esito.response);
+                        //imposto il colore di sfondo in base al numero
+                        if (esito.response <= 5) {
+                            $(quadrato).addClass("giallo");
+                        } else {
+                            $(quadrato).addClass("verde");
+                        }
+                    },
+                    error: function (richiesta, stato, errori) {
+                        alert("E' avvenuto un errore.");
                     }
-                },
-                error: function (richiesta, stato, errori) {
-                    alert("E' avvenuto un errore.");
-                }
 
-            }
-        );
+                }
+            );
+        }
+
 
     })
-
-
-
-
 });
