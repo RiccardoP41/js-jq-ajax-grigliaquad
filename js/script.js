@@ -6,10 +6,12 @@
 
 $(document).ready(function(){
 
+    // Generare una griglia 6x6 (36 boxes)
     for (var i = 0; i < 36; i++) {
         $(".container").append('<div class="square"></div>');
     }
-
+    // ad ogni click parte una richiesta
+    // AJAX che prende un numero random da 1 a 9
     $(".square").on("click", function(){
         var quadrato = $(this);
         $.ajax(
@@ -18,13 +20,16 @@ $(document).ready(function(){
                 "method": "GET",
                 "success": function (esito) {
                     $(quadrato).text(esito.response);
+                    if (esito.response <= 5) {
+                        $(quadrato).addClass("giallo");
+                    } else {
+                        $(quadrato).addClass("verde");
+                    }
                 },
                 error: function (richiesta, stato, errori) {
                     alert("E' avvenuto un errore.");
                 }
-                if (esito.response <= 5) {
-                    $(quadrato).addClass("giallo")
-                }
+
             }
         );
 
